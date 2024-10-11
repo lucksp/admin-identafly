@@ -2,7 +2,6 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { getUserRole } from "@/lib/get-user-role";
-import { createClient } from "@/lib/supabase/server";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -40,13 +39,14 @@ export async function updateSession(request: NextRequest) {
 
   // Get the user's role using the custom getUserRole function
   const role = await getUserRole();
-
   // Redirect non-admin users trying to access admin pages to the home page
+
+
   if (
     user &&
-    role !== "admin" &&
-    request.nextUrl.pathname.startsWith("/admin")
+    role !== "admin" 
   ) {
+    await supabase.auth.signOut()
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);

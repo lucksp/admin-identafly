@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
 
-import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
-import { useSearchParams } from "next/navigation";
+import { Icons } from '@/src/components/icons';
+import { Button } from '@/src/components/ui/button';
+import { toast } from '@/src/components/ui/use-toast';
+import { useSearchParams } from 'next/navigation';
 
 export default function SignInPage() {
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
@@ -14,16 +14,16 @@ export default function SignInPage() {
 
   const searchParams = useSearchParams();
 
-  const next = searchParams.get("next");
+  const next = searchParams.get('next');
 
   async function signInWithGoogle() {
     setIsGoogleLoading(true);
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
+        provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback${
-            next ? `?next=${encodeURIComponent(next)}` : ""
+            next ? `?next=${encodeURIComponent(next)}` : ''
           }`,
         },
       });
@@ -33,9 +33,9 @@ export default function SignInPage() {
       }
     } catch (error) {
       toast({
-        title: "Please try again.",
-        description: "There was an error logging in with Google.",
-        variant: "destructive",
+        title: 'Please try again.',
+        description: 'There was an error logging in with Google.',
+        variant: 'destructive',
       });
       setIsGoogleLoading(false);
     }
@@ -52,7 +52,7 @@ export default function SignInPage() {
         <Icons.loaderCircle className="mr-2 size-4 animate-spin" />
       ) : (
         <Icons.google className="mr-2 size-6" />
-      )}{" "}
+      )}{' '}
       Sign in with Google
     </Button>
   );

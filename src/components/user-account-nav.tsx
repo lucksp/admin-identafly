@@ -1,17 +1,16 @@
-import React from "react";
-import { FaUser } from "react-icons/fa6";
+import React from 'react';
+import { FaUser } from 'react-icons/fa6';
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
+import { SignInButton } from './signin-button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { SignInButton } from "@/components/signin-button";
-
-import { SignOutButton } from "@/components/signout-button";
+} from './ui/dropdown-menu';
+import { SignOutButton } from './signout-button';
 
 export async function UserAccountNav() {
   const supabase = createClient();
